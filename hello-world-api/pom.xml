@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.2</version>
+		<relativePath />
+		<!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.lbg.cbo-api</groupId>
+	<artifactId>
+		HelloWorldApi</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<packaging>
+			war</packaging>
+			<name>
+				HelloWorldApi-api</name>
+				<description>API's for HelloWorldApi</description>
+	<properties>
+		<java.version>1.8</java.version>
+		<powermock.version>2.0.2</powermock.version>
+		<cucumber.version>4.7.0</cucumber.version>
+		<logback-jackson>0.1.5</logback-jackson>
+		<logback-json-classic>0.1.5</logback-json-classic>
+		<splunk-library-javalogging.version>1.6.0</splunk-library-javalogging.version>
+		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+		<sonar.coverage.exclusions>
+			**/constants/**/*,
+			**/dto/**/*,
+			**/domain/*Status.*
+		</sonar.coverage.exclusions>
+		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+		<sonar.jacoco.reportPaths>${basedir}/target/jacoco.exec</sonar.jacoco.reportPaths>
+		<sonar.scanner.version>3.3.0.603</sonar.scanner.version>
+		<failOnMissingWebXml>false</failOnMissingWebXml>
+		<javax.el-api.version>3.0.0</javax.el-api.version>
+		<InternetBankingRegistrationManagementSOAClient.version>1.2
+		</InternetBankingRegistrationManagementSOAClient.version>
+		<jaxrpc-api.version>1.1</jaxrpc-api.version>
+		<was.version>8.0.0-FixPack-07</was.version>
+		<maven-failsafe-plugin.version>2.22.0</maven-failsafe-plugin.version>
+		<jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
+		<maven-war-plugin.version>3.2.3</maven-war-plugin.version>
+		<mysql.connector.version>8.0.17</mysql.connector.version>
+		<start-class>com.wipro.cloud.api.helloworld.HelloWorldApiApplication</start-class>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+
+	</properties>
+
+							<dependencies>
+								<dependency>
+									<groupId>org.springframework.boot</groupId>
+									<artifactId>spring-boot-starter-cache</artifactId>
+								</dependency>
+								<dependency>
+									<groupId>org.springframework.boot</groupId>
+									<artifactId>spring-boot-starter-web</artifactId>
+									<exclusions>
+										<exclusion>
+											<groupId>org.apache.tomcat.embed</groupId>
+											<artifactId>tomcat-embed-core</artifactId>
+										</exclusion>
+										<exclusion>
+											<groupId>org.apache.tomcat.embed</groupId>
+											<artifactId>tomcat-embed-websocket</artifactId>
+										</exclusion>
+									</exclusions>
+								</dependency>
+								<dependency>
+									<groupId>com.fasterxml.jackson.dataformat</groupId>
+									<artifactId>jackson-dataformat-xml</artifactId>
+								</dependency>
+								<dependency>
+									<groupId>org.springframework.boot</groupId>
+									<artifactId>spring-boot-devtools</artifactId>
+									<scope>runtime</scope>
+									<optional>true</optional>
+								</dependency>
+								<dependency>
+									<groupId>org.springframework.boot</groupId>
+									<artifactId>spring-boot-configuration-processor</artifactId>
+									<optional>true</optional>
+								</dependency>
+								<dependency>
+									<groupId>org.springframework.boot</groupId>
+									<artifactId>spring-boot-starter-validation</artifactId>
+								</dependency>
+								<dependency>
+									<groupId>org.springframework.boot</groupId>
+									<artifactId>spring-boot-starter-tomcat</artifactId>
+									<scope>provided</scope>
+								</dependency>
+								<dependency>
+									<groupId>org.springframework.boot</groupId>
+									<artifactId>spring-boot-starter-jdbc</artifactId>
+								</dependency>
+								<dependency>
+									<groupId>org.springframework.boot</groupId>
+									<artifactId>spring-boot-starter-aop</artifactId>
+								</dependency>
+								<dependency>
+									<groupId>net.logstash.logback</groupId>
+									<artifactId>logstash-logback-encoder</artifactId>
+									<version>6.1</version>
+								</dependency>
+								<dependency>
+									<groupId>com.splunk.logging</groupId>
+									<artifactId>splunk-library-javalogging</artifactId>
+									<version>${splunk-library-javalogging.version}</version>
+								</dependency>
+								<dependency>
+									<groupId>org.springframework.boot</groupId>
+									<artifactId>spring-boot-starter-test</artifactId>
+									<exclusions>
+										<exclusion>
+											<artifactId>junit-jupiter</artifactId>
+											<groupId>org.junit.jupiter</groupId>
+										</exclusion>
+										<exclusion>
+											<artifactId>junit-vintage-engine</artifactId>
+											<groupId>org.junit.vintage</groupId>
+										</exclusion>
+										<exclusion>
+											<artifactId>mockito-junit-jupiter</artifactId>
+											<groupId>org.mockito</groupId>
+										</exclusion>
+									</exclusions>
+									<scope>test</scope>
+								</dependency>
+								<dependency>
+									<groupId>javax.el</groupId>
+									<artifactId>javax.el-api</artifactId>
+									<version>${javax.el-api.version}</version>
+								</dependency>
+								<!-- <dependency> <groupId>org.mockito</groupId> <artifactId>mockito-core</artifactId> 
+			<scope>test</scope> </dependency> -->
+								<dependency>
+									<groupId>com.lbg.tbt</groupId>
+									<artifactId>InternetBankingRegistrationManagementSOAClient</artifactId>
+									<version>${InternetBankingRegistrationManagementSOAClient.version}</version>
+								</dependency>
+								<dependency>
+									<groupId>javax.xml</groupId>
+									<artifactId>jaxrpc-api</artifactId>
+									<version>${jaxrpc-api.version}</version>
+									<scope>provided</scope>
+								</dependency>
+								<!--This dependency is needed for SOA based wrappers. Use this when developing wrappers -->
+								<!-- <dependency>
+							<groupId>com.ibm.tools.target</groupId>
+							<artifactId>was</artifactId>
+							<version>${was.version}</version>
+							<type>pom</type>
+							<scope>provided</scope>
+							<exclusions>
+								<exclusion>
+									<groupId>com.ibm.websphere.j2ee</groupId>
+									<artifactId>j2ee</artifactId>
+								</exclusion>
+							</exclusions>
+
+						</dependency> -->
+								<dependency>
+									<groupId>org.apache.maven.plugins</groupId>
+									<artifactId>maven-compiler-plugin</artifactId>
+									<version>3.8.1</version>
+								</dependency>
+								<dependency>
+									<groupId>javax.servlet</groupId>
+									<artifactId>javax.servlet-api</artifactId>
+									<scope>provided</scope>
+								</dependency>
+
+								<dependency>
+									<groupId>io.cucumber</groupId>
+									<artifactId>cucumber-java8</artifactId>
+									<version>${cucumber.version}</version>
+									<scope>test</scope>
+								</dependency>
+								<dependency>
+									<groupId>io.cucumber</groupId>
+									<artifactId>cucumber-junit</artifactId>
+									<version>${cucumber.version}</version>
+									<scope>test</scope>
+								</dependency>
+								<dependency>
+									<groupId>io.cucumber</groupId>
+									<artifactId>cucumber-spring</artifactId>
+									<version>${cucumber.version}</version>
+									<scope>test</scope>
+								</dependency>
+								
+<dependency>
+<groupId>com.intuit.karate</groupId>
+<artifactId>karate-apache</artifactId>
+<version>0.9.6</version>
+<scope>test</scope>
+</dependency>
+<dependency>
+<groupId>com.intuit.karate</groupId>
+<artifactId>karate-gatling</artifactId>
+<version>0.9.6</version>
+<scope>test</scope>
+</dependency>
+<dependency>
+<groupId>com.intuit.karate</groupId>
+<artifactId>karate-junit4</artifactId>
+<version>0.9.6</version>
+<scope>test</scope>
+</dependency>
+
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-data-jpa</artifactId>
+<exclusions>
+<exclusion>
+<groupId>org.apache.tomcat</groupId>
+<artifactId>tomcat-jdbc</artifactId>
+</exclusion>
+
+<exclusion>
+<groupId>javax.transaction</groupId>
+<artifactId>javax.transaction-api</artifactId>
+</exclusion>
+</exclusions>
+</dependency>
+<dependency>
+<groupId>javax.transaction</groupId>
+<artifactId>jta</artifactId>
+<version>1.1</version>
+<scope>provided</scope>
+</dependency>
+<dependency>
+<groupId>com.oracle</groupId>
+<artifactId>ojdbc14</artifactId>
+<version>10.2.0.1.0</version>
+</dependency>
+<dependency>
+<groupId>mysql</groupId>
+<artifactId>mysql-connector-java</artifactId>
+<scope>runtime</scope>
+<version>${mysql.connector.version}</version>
+</dependency>
+<dependency>
+<groupId>org.powermock</groupId>
+<artifactId>powermock-module-junit4</artifactId>
+<version>${powermock.version}</version>
+<scope>test</scope>
+</dependency>
+<dependency>
+<groupId>org.powermock</groupId>
+<artifactId>powermock-api-mockito2</artifactId>
+<version>${powermock.version}</version>
+<scope>test</scope>
+</dependency>
+<dependency>
+<groupId>org.jacoco</groupId>
+<artifactId>org.jacoco.agent</artifactId>
+<classifier>runtime</classifier>
+<version>${jacoco-maven-plugin.version}</version>
+<scope>test</scope>
+</dependency>
+<dependency>
+<groupId>com.h2database</groupId>
+<artifactId>h2</artifactId>
+<!-- TODO Include an appropriate db driver class e.g. oracle to set the datasource and toggle h2 back to test scope-->
+<!-- <scope>test</scope> -->
+</dependency>
+</dependencies>
+<profiles>
+<profile>
+<id>failsafe</id>
+<build>
+<plugins>
+<plugin>
+<artifactId>maven-failsafe-plugin</artifactId>
+<version>${maven-failsafe-plugin.version}</version>
+<executions>
+<execution>
+<goals>
+<goal>integration-test</goal>
+<goal>verify</goal>
+</goals>
+</execution>
+</executions>
+<configuration>
+<includes>
+<include>**/*IT</include>
+<include>**/*ITCase</include>
+</includes>
+<systemPropertyVariables>
+<jacoco-agent.destfile>${basedir}/target/jacoco.exec</jacoco-agent.destfile>
+</systemPropertyVariables>
+<classpathDependencyScopeExclude>test</classpathDependencyScopeExclude>
+<classpathDependencyExcludes>
+<classpathDependencyExclude>com.ibm.websphere.j2ee:j2ee</classpathDependencyExclude>
+<classpathDependencyExclude>javax.persistence:javax.persistence-api</classpathDependencyExclude>
+</classpathDependencyExcludes>
+</configuration>
+</plugin>
+</plugins>
+</build>
+</profile>
+</profiles>
+<build>
+<testResources>
+<testResource>
+<directory>src/test/resources</directory>
+</testResource>
+<testResource>
+<directory>src/test/java</directory>
+<excludes>
+<exclude>**/*.java</exclude>
+</excludes>
+</testResource>
+</testResources>
+<plugins>
+<plugin>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-maven-plugin</artifactId>
+</plugin>
+<plugin>
+<artifactId>maven-war-plugin</artifactId>
+<configuration>
+<packagingExcludes>WEB-INF/classes/static/images/*</packagingExcludes>
+</configuration>
+</plugin>
+<plugin>
+<groupId>org.jacoco</groupId>
+<artifactId>jacoco-maven-plugin</artifactId>
+<!-- version>0.7.6.201602180812</version> -->
+<version>${jacoco-maven-plugin.version}</version>
+<configuration>
+
+<destFile>${basedir}/target/jacoco.exec</destFile>
+<excludes>
+<exclude>*</exclude>
+<exclude>com/lbg/cbo/clientadministration/domain/service/dto/*</exclude>
+<exclude>com/lbg/cbo/clientadministration/domain/service/constants/*</exclude>
+<exclude>com/lbg/cbo/clientadministration/domain/*Status.*</exclude>
+</excludes>
+</configuration>
+<!-- <executions>
+<execution>
+<id>default-instrument</id>
+<goals>
+<goal>instrument</goal>
+</goals>
+</execution>
+<execution>
+<id>default-restore-instrumented-classes</id>
+<goals>
+<goal>restore-instrumented-classes</goal>
+</goals>
+</execution>
+<execution>
+<id>default-report</id>
+<phase>prepare-package</phase>
+<goals>
+<goal>report</goal>
+</goals>
+</execution>
+</executions> -->
+</plugin>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-surefire-plugin</artifactId>
+<configuration>
+<systemPropertyVariables>
+<jacoco-agent.destfile>${basedir}/target/jacoco.exec</jacoco-agent.destfile>
+</systemPropertyVariables>
+</configuration>
+
+</plugin>
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-compiler-plugin</artifactId>
+	<version>3.8.0</version>
+	<configuration>
+		<release>11</release>
+	</configuration>
+</plugin>
+
+<plugin>
+<groupId>org.sonarsource.scanner.maven</groupId>
+<artifactId>sonar-maven-plugin</artifactId>
+<version>${sonar.scanner.version}</version>
+</plugin>
+</plugins>
+</build>
+
+</project>

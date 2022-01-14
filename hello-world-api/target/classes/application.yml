@@ -1,0 +1,47 @@
+server:
+  error:
+    whitelabel:
+      enabled: false
+  port: 8082
+spring:
+  profiles.active: dev
+  application:
+    name: HelloWorldApi-api
+
+---
+spring:
+  profiles: dev
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  main:
+    banner-mode: "console"
+logging:
+  file: logs/dev_HelloWorldApi_api.log
+  config: classpath:spring-logback.xml
+  pattern:
+    console: "%d{dd-MM-yyyy HH:mm:ss.SSS}  %highlight(%-5level) %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    org.springframework.web: debug
+    com.lbg.cbo.HelloWorldApi: debug
+    web: INFO
+  register-shutdown-hook: false
+splunk: hec_token:7716d772-b109-4160-a566-7b6e339d3aff
+  hec_url:http://localhost:8088/
+  source:http:HelloWorldApi_api_SPLUNK
+logger:
+  value: logger.HelloWorldApi.dev
+---
+spring:
+  profiles: production
+logging:
+  file: logs/production_HelloWorldApi_api.log
+  pattern:
+    file: "%d %-5level [%thread] %logger{0} : %msg%n"
+  level:
+    org.springframework.web: WARN
+    com.lbg.cbo.HelloWorldApi: WARN
+#logger:
+#  name:logger.HelloWorldApi.prod

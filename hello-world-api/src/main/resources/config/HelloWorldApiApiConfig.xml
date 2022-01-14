@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appConfig>
+    <environment>TBT_ST2</environment>
+    <datasourceJNDI>jdbc/ReferenceData</datasourceJNDI>
+    <cwaAuditApiEndPointUrl>http://wcsduvirtual0ad.machine.test.group:10050/AuditAPI/audit/v1/recordAudit</cwaAuditApiEndPointUrl>
+    <channelSchemaName>CHANNEL_OWNER_ST2</channelSchemaName>
+</appConfig>

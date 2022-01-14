@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook" />
+	<property resource="application.yml" />
+	<springProperty scope="context" name="logfile" source="logging.file" />
+	<springProperty scope="context" name="app" source="spring.application.name" />
+	<springProperty scope="context" name="hec_url" source="splunk.hec_url" />
+	<springProperty scope="context" name="hec_token" source="splunk.hec_token" />
+	<springProperty scope="context" name="hec_source" source="splunk.source" />
+	<contextName>${app}</contextName>
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+			<providers>
+				<contextName>
+					<fieldName>application</fieldName>
+				</contextName>
+
+				<timestamp>
+					<fieldName>timestamp</fieldName>
+					<timeZone>UTC</timeZone>
+				</timestamp>
+				<mdc />
+				<arguments>
+					<includeNonStructuredArguments>false
+					</includeNonStructuredArguments>
+				</arguments>
+				<stackTrace>
+					<fieldName>stack</fieldName>
+				</stackTrace>
+				<message>
+					<fieldName>msg</fieldName>
+				</message>
+			</providers>
+		</encoder>
+	</appender>
+	<appender name="ROLLINGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logfile}</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!-- <Pattern>%date %-5relative %-5level %logger{35} - %msg%n</Pattern> -->
+			<Pattern>%d %-5level [%thread] %logger : %msg%n</Pattern>
+		</encoder>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover file daily or when the file cross threshold of 3 MB -->
+			<fileNamePattern>${logfile}/archived/cwa-%d{yyyy-MM-dd}.%i.log.gz
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>3MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+	<appender name="SPLUNK" class="com.splunk.logging.HttpEventCollectorLogbackAppender">
+		<url>${hec_url}</url>
+		<token>${hec_token}</token>
+		<source>http:client_administration_api_SPLUNK</source>
+		<middleware>HttpEventCollectorUnitTestMiddleware</middleware>
+		<disableCertificateValidation>true</disableCertificateValidation>
+		<batch_size_count>1</batch_size_count>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%msg</pattern>
+		</layout>
+	</appender>
+	<logger name="splunk.logger" additivity="false" level="debug">
+		<appender-ref ref="SPLUNK" />
+	</logger>
+	<springProfile name="dev">
+		<logger level="debug" name="logger.HelloWorldApi">
+			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="ROLLINGFILE" />
+			<appender-ref ref="SPLUNK" />
+		</logger>
+	</springProfile>
+	<springProfile name="prod">
+		<logger level="debug" name="logger.HelloWorldApi">
+			<!-- <appender-ref ref="CONSOLE" /> -->
+			<appender-ref ref="ROLLINGFILE" />
+			<appender-ref ref="SPLUNK" />
+		</logger>
+	</springProfile>
+	<root level="INFO">
+		<!-- <appender-ref ref="CONSOLE" /> <appender-ref ref="FILE" /> -->
+	</root>
+</configuration>

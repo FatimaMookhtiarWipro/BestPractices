@@ -1,0 +1,52 @@
+{
+    "ERR190": {
+        "code": 190,
+        "reasonCode": "ServiceMessage switch turned off",
+        "message": "The API is unavailable as the service message is turned off."
+    },
+    "ERR191": {
+        "code": 191,
+        "reasonCode": "Invalid Request",
+        "message": "Your browser sent a request that this server could not understand."
+    },
+    "ERR192": {
+        "code": 192,
+        "reasonCode": "Method Not Allowed",
+        "message": "Your request method is not supported for the requested resource."
+    },
+    "ERR193": {
+        "code": 193,
+        "reasonCode": "Server Error",
+        "message": "Something went wrong. Please contact system administrator."
+    },
+    "ERR194": {
+        "code": 194,
+        "reasonCode": "Limit exceeded",
+        "message": "Rate limit violation"
+    },
+    "ERR195": {
+        "code": 195,
+        "reasonCode": "Application Switch Error",
+        "message": "Error retrieving the response from application switch api."
+    },
+    "ERR196": {
+        "code": 196,
+        "reasonCode": "ServiceMessageException",
+        "message": "Exception occurred while retrieving service message for the client."
+    },
+    "ERR197": {
+        "code": 197,
+        "reasonCode": "Service Message Not Found",
+        "message": "Error when trying to map the response."
+    },
+    "ERR198": {
+        "code": 198,
+        "reasonCode": "InfrastructureServiceException",
+        "message": "Error establishing connection to the channel"
+    },
+    "ERR199": {
+        "code": 199,
+        "reasonCode": "ApplicationConfigurationError",
+        "message": "Error encountered while booting-strapping with configuration resources"
+    }
+}
